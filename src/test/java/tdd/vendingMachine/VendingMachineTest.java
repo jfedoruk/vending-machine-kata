@@ -31,6 +31,7 @@ public class VendingMachineTest {
         assertEquals(vendingMachine.getMoney(), 0, 0.0);
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 0.0");
+        assertThat(outContent.toString()).contains("Shelve: 0");
     }
 
 }
