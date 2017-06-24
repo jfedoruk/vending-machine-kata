@@ -34,17 +34,26 @@ public class VendingMachine {
         return money;
     }
 
+    public int getShelvesCount() {
+        if (shelves == null) {
+            return 0;
+        }
+        return shelves.size();
+    }
+
     /**
      * Vending Machine display in ASCII.
-     *
+     * <p>
      * Display shows:
-     * - money inside vending machine
-     * - selected shelve
+     * <uL>
+     * <li>money inside vending machine
+     * <li>selected shelve and their count
+     * </uL>
      */
     public void display() {
         System.out.println(separator);
         System.out.println("Money: " + getMoney());
-        System.out.println("Selected Shelve: " + selectedShelve);
+        System.out.println("Selected Shelve: " + selectedShelve + " of " + getShelvesCount());
         System.out.println(separator);
     }
 }

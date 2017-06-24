@@ -33,7 +33,7 @@ public class VendingMachineTest {
 
     @Test
     public void testVendingMachine() {
-        assertEquals(vendingMachine.getMoney(), 0, 0.0);
+        assertEquals(0, vendingMachine.getMoney(), 0.0);
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 0.0");
         assertThat(outContent.toString()).contains("Shelve: 0");
@@ -64,5 +64,17 @@ public class VendingMachineTest {
         exception.expectMessage("Shelve number cannot be negative.");
         vendingMachine.putProductsOnShelves();
         vendingMachine.selectShelve(-1);
+    }
+
+    @Test()
+    public void testShelvesCount() {
+        assertEquals(0, vendingMachine.getShelvesCount());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 0 of 0");
+
+        vendingMachine.putProductsOnShelves();
+        assertEquals(4, vendingMachine.getShelvesCount());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 0 of 4");
     }
 }
