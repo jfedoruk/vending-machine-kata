@@ -5,4 +5,10 @@ package tdd.vendingMachine.products;
  */
 public class Cola implements Product {
 
+    private double price = 2.5;
+
+    @Override
+    public double price() {
+        return price;
+    }
 }

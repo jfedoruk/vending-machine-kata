@@ -5,4 +5,6 @@ package tdd.vendingMachine.products;
  */
 public interface Product {
 
+    double price();
+
 }

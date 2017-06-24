@@ -12,6 +12,12 @@ public class ProductFactory {
 
         if (productType.equalsIgnoreCase("COLA")) {
             return new Cola();
+        } else if (productType.equalsIgnoreCase("CHOCOLATE")) {
+            return new Chocolate();
+        } else if (productType.equalsIgnoreCase("WATER")) {
+            return new Water();
+        } else if (productType.equalsIgnoreCase("BEER")) {
+            return new Beer();
         }
 
         return null;
