@@ -23,7 +23,10 @@ public class VendingMachine {
         shelves.add(productFactory.getProduct("WATER"));
     }
 
-    public void selectShelve(int selectedShelve) {
+    public void selectShelve(int selectedShelve) throws Exception {
+        if (selectedShelve < 0) {
+            throw new Exception("Shelve number cannot be negative.");
+        }
         this.selectedShelve = selectedShelve;
     }
 
