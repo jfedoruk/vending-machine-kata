@@ -34,4 +34,26 @@ public class VendingMachineTest {
         assertThat(outContent.toString()).contains("Shelve: 0");
     }
 
+
+    @Test
+    public void testSelectingShelve() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 0");
+
+        vendingMachine.putProductsOnShelves();
+
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 0");
+
+        vendingMachine.selectShelve(1);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 1");
+
+        vendingMachine.selectShelve(3);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 3");
+    }
+
 }

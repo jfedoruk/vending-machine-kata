@@ -1,10 +1,27 @@
 package tdd.vendingMachine;
 
+import tdd.vendingMachine.products.Product;
+import tdd.vendingMachine.products.ProductFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class VendingMachine {
 
     private String separator = "######## Vending Machine ########";
     private double money = 0;
     private int selectedShelve = 0;
+    private List<Product> shelves;
+
+    public void putProductsOnShelves() {
+        ProductFactory productFactory = new ProductFactory();
+
+        shelves = new ArrayList<>();
+        shelves.add(productFactory.getProduct("COLA"));
+        shelves.add(productFactory.getProduct("CHOCOLATE"));
+        shelves.add(productFactory.getProduct("BEER"));
+        shelves.add(productFactory.getProduct("WATER"));
+    }
 
     public void selectShelve(int selectedShelve) {
         this.selectedShelve = selectedShelve;
