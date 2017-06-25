@@ -1,14 +1,16 @@
 package tdd.vendingMachine.products;
 
+import java.math.BigDecimal;
+
 /**
  * Beer implementation of Vending Machine Product.
  */
 public class Beer implements Product {
 
-    private double price = 4.3;
+    private BigDecimal price = BigDecimal.valueOf(4.3);
 
     @Override
-    public double price() {
+    public BigDecimal price() {
         return price;
     }
 

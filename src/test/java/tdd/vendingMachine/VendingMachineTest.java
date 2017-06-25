@@ -8,10 +8,13 @@ import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static tdd.vendingMachine.VendingMachineSuite.ZERO;
+import static tdd.vendingMachine.VendingMachine.ZERO;
+import static tdd.vendingMachine.atm.Coin.POINT_FIVE;
+import static tdd.vendingMachine.atm.Coin.TWO;
 
 public class VendingMachineTest {
 
@@ -112,5 +115,27 @@ public class VendingMachineTest {
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Product: Water {price = 1.1}");
         outContent.reset();
+    }
+
+    @Test
+    public void testBuyWithoutChange() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(0);
+
+        vendingMachine.deposit(TWO);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Current balance: 2.0");
+        assertThat(outContent.toString()).contains("Remaining: 0.5");
+        outContent.reset();
+
+        vendingMachine.deposit(POINT_FIVE);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Successful purchase!");
+        assertThat(outContent.toString()).contains("Disposing product: Cola");
+        outContent.reset();
+
+        assertEquals(BigDecimal.valueOf(2.5), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 2.5");
     }
 }
