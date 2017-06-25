@@ -48,17 +48,23 @@ public class VendingMachineTest {
         vendingMachine.putProductsOnShelves();
 
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 0");
+        assertThat(outContent.toString()).contains("Shelve: 1");
         outContent.reset();
 
         vendingMachine.selectShelve(1);
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 1");
+        assertThat(outContent.toString()).contains("Shelve: 2");
+        outContent.reset();
+
+
+        vendingMachine.selectShelve(2);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Shelve: 3");
         outContent.reset();
 
         vendingMachine.selectShelve(3);
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 3");
+        assertThat(outContent.toString()).contains("Shelve: 4");
         outContent.reset();
     }
 
@@ -80,7 +86,7 @@ public class VendingMachineTest {
         vendingMachine.putProductsOnShelves();
         assertEquals(4, vendingMachine.getShelvesCount());
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 0 of 4");
+        assertThat(outContent.toString()).contains("Shelve: 1 of 4");
     }
 
     @Test

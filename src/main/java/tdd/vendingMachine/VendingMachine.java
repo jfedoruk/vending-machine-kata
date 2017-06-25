@@ -30,6 +30,13 @@ public class VendingMachine {
         this.selectedShelve = selectedShelve;
     }
 
+    private int getSelectedShelveForDisplay() {
+        if (shelves == null) {
+            return 0;
+        }
+        return selectedShelve + 1;
+    }
+
     public double getMoney() {
         return money;
     }
@@ -53,10 +60,11 @@ public class VendingMachine {
     public void display() {
         System.out.println(separator);
         System.out.println("Money: " + getMoney());
-        System.out.println("Selected Shelve: " + selectedShelve + " of " + getShelvesCount());
+        System.out.println("Selected Shelve: " + getSelectedShelveForDisplay() + " of " + getShelvesCount());
         if (shelves != null && shelves.get(selectedShelve) != null) {
             System.out.println("Product: " + shelves.get(selectedShelve).toString());
         }
         System.out.println(separator);
     }
+
 }
