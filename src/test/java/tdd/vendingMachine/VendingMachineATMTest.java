@@ -1,7 +1,9 @@
 package tdd.vendingMachine;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import tdd.vendingMachine.atm.VendingMachineATM;
 
 import java.math.BigDecimal;
@@ -11,6 +13,9 @@ import static org.junit.Assert.assertEquals;
 public class VendingMachineATMTest {
 
     private VendingMachineATM atm;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -46,7 +51,7 @@ public class VendingMachineATMTest {
     }
 
     @Test
-    public void testWithdrawal() {
+    public void testWithdrawal() throws Exception {
         assertEquals(BigDecimal.valueOf(0), atm.getMoney());
 
         atm.deposit(5);
@@ -76,4 +81,11 @@ public class VendingMachineATMTest {
         assertEquals(BigDecimal.valueOf(0.0), atm.getMoney());
     }
 
+    @Test
+    public void testWithdrawalNegative() throws Exception {
+        exception.expect(Exception.class);
+        exception.expectMessage("Cannot withdraw - no sufficient money left.");
+
+        atm.withdraw(1);
+    }
 }

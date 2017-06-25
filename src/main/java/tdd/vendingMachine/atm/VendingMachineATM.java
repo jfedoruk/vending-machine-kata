@@ -18,7 +18,12 @@ public class VendingMachineATM {
         money = money.add(BigDecimal.valueOf(coin));
     }
 
-    public void withdraw(double coin) {
-        money = money.subtract(BigDecimal.valueOf(coin));
+    public void withdraw(double coin) throws Exception {
+        BigDecimal coinBD = BigDecimal.valueOf(coin);
+        if (coinBD.compareTo(money) == 1) {
+            throw new Exception("Cannot withdraw - no sufficient money left.");
+        }
+
+        money = money.subtract(coinBD);
     }
 }
