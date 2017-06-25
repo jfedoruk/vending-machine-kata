@@ -13,7 +13,6 @@ public class VendingMachine {
 
     public static final BigDecimal ZERO = BigDecimal.valueOf(0.0);
 
-    private String separator = "######## Vending Machine ########";
     private int selectedShelve = 0;
     private List<Product> shelves;
     private VendingMachineATM atm = new VendingMachineATM();
@@ -24,15 +23,12 @@ public class VendingMachine {
         currentBalance = currentBalance.add(coin.value());
     }
 
-    public BigDecimal getMoney() {
-        return atm.getMoney();
+    public void display() {
+        VendingMachineDisplay.display(getMoney(), selectedShelve, shelves, currentBalance);
     }
 
-    private int getSelectedShelveForDisplay() {
-        if (shelves == null) {
-            return 0;
-        }
-        return selectedShelve + 1;
+    public BigDecimal getMoney() {
+        return atm.getMoney();
     }
 
     public int getShelvesCount() {
@@ -57,33 +53,6 @@ public class VendingMachine {
             throw new Exception("Shelve number cannot be negative.");
         }
         this.selectedShelve = selectedShelve;
-    }
-
-    /**
-     * Vending Machine display in ASCII.
-     * <p>
-     * Display shows:
-     * <uL>
-     * <li>money inside vending machine
-     * <li>selected shelve and their count
-     * </uL>
-     */
-    public void display() {
-        System.out.println(separator);
-        System.out.println("Money: " + getMoney());
-        System.out.println("Selected Shelve: " + getSelectedShelveForDisplay() + " of " + getShelvesCount());
-        if (shelves != null && shelves.get(selectedShelve) != null) {
-            System.out.println("Product: " + shelves.get(selectedShelve).toString());
-        }
-        System.out.println("Current balance: " + currentBalance);
-        if (currentBalance.compareTo(ZERO) == 1) {
-            System.out.println("Remaining: " + shelves.get(selectedShelve).price().subtract(currentBalance));
-        }
-        if (shelves != null && currentBalance.compareTo(shelves.get(selectedShelve).price()) >= 0) {
-            System.out.println("Successful purchase!");
-            System.out.println("Disposing product: " + shelves.get(selectedShelve).toString());
-        }
-        System.out.println(separator);
     }
 
 }

@@ -40,13 +40,13 @@ public class VendingMachineTest {
         assertEquals(ZERO, vendingMachine.getMoney());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 0.0");
-        assertThat(outContent.toString()).contains("Shelve: 0");
+        assertThat(outContent.toString()).contains("No shelves - sorry we're empty:(");
     }
 
     @Test
     public void testSelectingShelve() throws Exception {
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 0");
+        assertThat(outContent.toString()).contains("No shelves - sorry we're empty:(");
         outContent.reset();
 
         vendingMachine.putProductsOnShelves();
@@ -84,7 +84,7 @@ public class VendingMachineTest {
     public void testShelvesCount() {
         assertEquals(0, vendingMachine.getShelvesCount());
         vendingMachine.display();
-        assertThat(outContent.toString()).contains("Shelve: 0 of 0");
+        assertThat(outContent.toString()).contains("No shelves - sorry we're empty:(");
         outContent.reset();
 
         vendingMachine.putProductsOnShelves();
