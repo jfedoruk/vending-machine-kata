@@ -9,6 +9,7 @@ import tdd.vendingMachine.atm.VendingMachineATM;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static tdd.vendingMachine.atm.Coin.*;
 
 public class VendingMachineATMTest {
 
@@ -31,22 +32,22 @@ public class VendingMachineATMTest {
     public void testDeposit() {
         assertEquals(BigDecimal.valueOf(0), atm.getMoney());
 
-        atm.deposit(5);
+        atm.deposit(FIVE);
         assertEquals(BigDecimal.valueOf(5.0), atm.getMoney());
 
-        atm.deposit(2);
+        atm.deposit(TWO);
         assertEquals(BigDecimal.valueOf(7.0), atm.getMoney());
 
-        atm.deposit(1);
+        atm.deposit(ONE);
         assertEquals(BigDecimal.valueOf(8.0), atm.getMoney());
 
-        atm.deposit(0.5);
+        atm.deposit(POINT_FIVE);
         assertEquals(BigDecimal.valueOf(8.5), atm.getMoney());
 
-        atm.deposit(0.2);
+        atm.deposit(POINT_TWO);
         assertEquals(BigDecimal.valueOf(8.7), atm.getMoney());
 
-        atm.deposit(0.1);
+        atm.deposit(POINT_ONE);
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
     }
 
@@ -54,30 +55,30 @@ public class VendingMachineATMTest {
     public void testWithdrawal() throws Exception {
         assertEquals(BigDecimal.valueOf(0), atm.getMoney());
 
-        atm.deposit(5);
-        atm.deposit(2);
-        atm.deposit(1);
-        atm.deposit(0.5);
-        atm.deposit(0.2);
-        atm.deposit(0.1);
+        atm.deposit(FIVE);
+        atm.deposit(TWO);
+        atm.deposit(ONE);
+        atm.deposit(POINT_FIVE);
+        atm.deposit(POINT_TWO);
+        atm.deposit(POINT_ONE);
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
 
-        atm.withdraw(5);
+        atm.withdraw(FIVE);
         assertEquals(BigDecimal.valueOf(3.8), atm.getMoney());
 
-        atm.withdraw(2);
+        atm.withdraw(TWO);
         assertEquals(BigDecimal.valueOf(1.8), atm.getMoney());
 
-        atm.withdraw(1);
+        atm.withdraw(ONE);
         assertEquals(BigDecimal.valueOf(0.8), atm.getMoney());
 
-        atm.withdraw(0.5);
+        atm.withdraw(POINT_FIVE);
         assertEquals(BigDecimal.valueOf(0.3), atm.getMoney());
 
-        atm.withdraw(0.2);
+        atm.withdraw(POINT_TWO);
         assertEquals(BigDecimal.valueOf(0.1), atm.getMoney());
 
-        atm.withdraw(0.1);
+        atm.withdraw(POINT_ONE);
         assertEquals(BigDecimal.valueOf(0.0), atm.getMoney());
     }
 
@@ -86,6 +87,6 @@ public class VendingMachineATMTest {
         exception.expect(Exception.class);
         exception.expectMessage("Cannot withdraw - no sufficient money left.");
 
-        atm.withdraw(1);
+        atm.withdraw(ONE);
     }
 }

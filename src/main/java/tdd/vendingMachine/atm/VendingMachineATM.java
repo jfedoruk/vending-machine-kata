@@ -14,16 +14,15 @@ public class VendingMachineATM {
         return money;
     }
 
-    public void deposit(double coin) {
-        money = money.add(BigDecimal.valueOf(coin));
+    public void deposit(Coin coin) {
+        money = money.add(coin.value());
     }
 
-    public void withdraw(double coin) throws Exception {
-        BigDecimal coinBD = BigDecimal.valueOf(coin);
-        if (coinBD.compareTo(money) == 1) {
+    public void withdraw(Coin coin) throws Exception {
+        if (coin.value().compareTo(money) == 1) {
             throw new Exception("Cannot withdraw - no sufficient money left.");
         }
 
-        money = money.subtract(coinBD);
+        money = money.subtract(coin.value());
     }
 }
