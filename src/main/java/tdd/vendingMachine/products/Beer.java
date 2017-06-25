@@ -11,4 +11,11 @@ public class Beer implements Product {
     public double price() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Beer {" +
+            "price = " + price +
+            '}';
+    }
 }

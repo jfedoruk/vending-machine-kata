@@ -11,4 +11,11 @@ public class Chocolate implements Product {
     public double price() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Chocolate {" +
+            "price = " + price +
+            '}';
+    }
 }

@@ -54,6 +54,9 @@ public class VendingMachine {
         System.out.println(separator);
         System.out.println("Money: " + getMoney());
         System.out.println("Selected Shelve: " + selectedShelve + " of " + getShelvesCount());
+        if (shelves != null && shelves.get(selectedShelve) != null) {
+            System.out.println("Product: " + shelves.get(selectedShelve).toString());
+        }
         System.out.println(separator);
     }
 }

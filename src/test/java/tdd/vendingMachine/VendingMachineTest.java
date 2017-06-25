@@ -43,19 +43,23 @@ public class VendingMachineTest {
     public void testSelectingShelve() throws Exception {
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 0");
+        outContent.reset();
 
         vendingMachine.putProductsOnShelves();
 
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 0");
+        outContent.reset();
 
         vendingMachine.selectShelve(1);
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 1");
+        outContent.reset();
 
         vendingMachine.selectShelve(3);
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 3");
+        outContent.reset();
     }
 
     @Test()
@@ -71,10 +75,35 @@ public class VendingMachineTest {
         assertEquals(0, vendingMachine.getShelvesCount());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 0 of 0");
+        outContent.reset();
 
         vendingMachine.putProductsOnShelves();
         assertEquals(4, vendingMachine.getShelvesCount());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Shelve: 0 of 4");
+    }
+
+    @Test
+    public void testProductInformation() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(0);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Cola {price = 2.5}");
+        outContent.reset();
+
+        vendingMachine.selectShelve(1);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Chocolate {price = 3.5}");
+        outContent.reset();
+
+        vendingMachine.selectShelve(2);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Beer {price = 4.3}");
+        outContent.reset();
+
+        vendingMachine.selectShelve(3);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Water {price = 1.1}");
+        outContent.reset();
     }
 }
