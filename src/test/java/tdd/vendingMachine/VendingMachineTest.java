@@ -21,7 +21,7 @@ public class VendingMachineTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Before
-    public void setUpStreams() {
+    public void setUp() {
         System.setOut(new PrintStream(outContent));
         vendingMachine = new VendingMachine();
     }

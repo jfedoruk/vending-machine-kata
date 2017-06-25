@@ -1,14 +1,20 @@
 package tdd.vendingMachine.atm;
 
+import java.math.BigDecimal;
+
 /**
  * ATM for VendingMachine.
  * Supports deposit and withdrawal of coins.
  */
 public class VendingMachineATM {
 
-    private double money;
+    private BigDecimal money = new BigDecimal(0);
 
-    public double getMoney() {
+    public BigDecimal getMoney() {
         return money;
+    }
+
+    public void deposit(double coin) {
+        money = money.add(BigDecimal.valueOf(coin));
     }
 }
