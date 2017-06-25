@@ -45,4 +45,35 @@ public class VendingMachineATMTest {
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
     }
 
+    @Test
+    public void testWithdrawal() {
+        assertEquals(BigDecimal.valueOf(0), atm.getMoney());
+
+        atm.deposit(5);
+        atm.deposit(2);
+        atm.deposit(1);
+        atm.deposit(0.5);
+        atm.deposit(0.2);
+        atm.deposit(0.1);
+        assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
+
+        atm.withdraw(5);
+        assertEquals(BigDecimal.valueOf(3.8), atm.getMoney());
+
+        atm.withdraw(2);
+        assertEquals(BigDecimal.valueOf(1.8), atm.getMoney());
+
+        atm.withdraw(1);
+        assertEquals(BigDecimal.valueOf(0.8), atm.getMoney());
+
+        atm.withdraw(0.5);
+        assertEquals(BigDecimal.valueOf(0.3), atm.getMoney());
+
+        atm.withdraw(0.2);
+        assertEquals(BigDecimal.valueOf(0.1), atm.getMoney());
+
+        atm.withdraw(0.1);
+        assertEquals(BigDecimal.valueOf(0.0), atm.getMoney());
+    }
+
 }

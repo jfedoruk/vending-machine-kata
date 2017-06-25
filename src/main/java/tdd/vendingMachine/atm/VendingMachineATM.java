@@ -17,4 +17,8 @@ public class VendingMachineATM {
     public void deposit(double coin) {
         money = money.add(BigDecimal.valueOf(coin));
     }
+
+    public void withdraw(double coin) {
+        money = money.subtract(BigDecimal.valueOf(coin));
+    }
 }
