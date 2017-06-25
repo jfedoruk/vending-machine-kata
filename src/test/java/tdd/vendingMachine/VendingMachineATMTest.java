@@ -9,6 +9,7 @@ import tdd.vendingMachine.atm.VendingMachineATM;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static tdd.vendingMachine.VendingMachineSuite.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
 public class VendingMachineATMTest {
@@ -25,12 +26,12 @@ public class VendingMachineATMTest {
 
     @Test
     public void testVendingMachineATM() {
-        assertEquals(BigDecimal.valueOf(0), atm.getMoney());
+        assertEquals(BigDecimal.valueOf(0.0), atm.getMoney());
     }
 
     @Test
     public void testDeposit() {
-        assertEquals(BigDecimal.valueOf(0), atm.getMoney());
+        assertEquals(ZERO, atm.getMoney());
 
         atm.deposit(FIVE);
         assertEquals(BigDecimal.valueOf(5.0), atm.getMoney());
@@ -53,7 +54,7 @@ public class VendingMachineATMTest {
 
     @Test
     public void testWithdrawal() throws Exception {
-        assertEquals(BigDecimal.valueOf(0), atm.getMoney());
+        assertEquals(ZERO, atm.getMoney());
 
         atm.deposit(FIVE);
         atm.deposit(TWO);

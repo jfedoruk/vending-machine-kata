@@ -11,6 +11,7 @@ import java.io.PrintStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static tdd.vendingMachine.VendingMachineSuite.ZERO;
 
 public class VendingMachineTest {
 
@@ -33,7 +34,7 @@ public class VendingMachineTest {
 
     @Test
     public void testVendingMachine() {
-        assertEquals(0, vendingMachine.getMoney(), 0.0);
+        assertEquals(ZERO, vendingMachine.getMoney());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 0.0");
         assertThat(outContent.toString()).contains("Shelve: 0");

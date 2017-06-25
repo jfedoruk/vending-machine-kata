@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 public class VendingMachineATM {
 
-    private BigDecimal money = new BigDecimal(0);
+    private BigDecimal money = BigDecimal.valueOf(0.0);
 
     public BigDecimal getMoney() {
         return money;

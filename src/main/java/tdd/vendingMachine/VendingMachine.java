@@ -1,17 +1,19 @@
 package tdd.vendingMachine;
 
+import tdd.vendingMachine.atm.VendingMachineATM;
 import tdd.vendingMachine.products.Product;
 import tdd.vendingMachine.products.ProductFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VendingMachine {
 
     private String separator = "######## Vending Machine ########";
-    private double money = 0;
     private int selectedShelve = 0;
     private List<Product> shelves;
+    private VendingMachineATM atm = new VendingMachineATM();
 
     public void putProductsOnShelves() {
         ProductFactory productFactory = new ProductFactory();
@@ -37,8 +39,8 @@ public class VendingMachine {
         return selectedShelve + 1;
     }
 
-    public double getMoney() {
-        return money;
+    public BigDecimal getMoney() {
+        return atm.getMoney();
     }
 
     public int getShelvesCount() {
