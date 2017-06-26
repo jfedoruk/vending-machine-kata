@@ -99,7 +99,7 @@ public class VendingMachineATMTest {
     }
 
     @Test
-    @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE", "POINT_TWO", "POINT_ONE"})
+    @Parameters(source = Coin.class)
     public void testNumberOfCoinsDeposit(Coin coin) {
         for (Coin coinType : Coin.values()) {
             assertEquals(0, atm.getCoins(coinType));
@@ -136,7 +136,7 @@ public class VendingMachineATMTest {
     }
 
     @Test
-    @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE", "POINT_TWO", "POINT_ONE"})
+    @Parameters(source = Coin.class)
     public void testNumberOfCoinsWithdrawal(Coin coin) throws Exception {
         for (Coin coinType : Coin.values()) {
             assertEquals(0, atm.getCoins(coinType));
@@ -153,4 +153,5 @@ public class VendingMachineATMTest {
             }
         }
     }
+
 }
