@@ -61,12 +61,9 @@ public class VendingMachineATMTest {
     public void testWithdrawal() throws Exception {
         assertEquals(ZERO, atm.getMoney());
 
-        atm.deposit(FIVE);
-        atm.deposit(TWO);
-        atm.deposit(ONE);
-        atm.deposit(POINT_FIVE);
-        atm.deposit(POINT_TWO);
-        atm.deposit(POINT_ONE);
+        for (Coin coin : Coin.values()) {
+            atm.deposit(coin);
+        }
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
 
         atm.withdraw(FIVE);
@@ -111,6 +108,27 @@ public class VendingMachineATMTest {
                 assertEquals(0, atm.getCoins(coinType));
             }
         }
+    }
+
+    @Test
+    public void testDifferentCoinsDeposit() {
+        for (Coin coin : Coin.values()) {
+            atm.deposit(coin);
+        }
+        assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
+
+        for (Coin coin : Coin.values()) {
+            assertEquals(1, atm.getCoins(coin));
+        }
+
+        atm.deposit(ONE);
+        atm.deposit(POINT_ONE);
+        atm.deposit(POINT_FIVE);
+        atm.deposit(POINT_FIVE);
+        assertEquals(BigDecimal.valueOf(10.9), atm.getMoney());
+        assertEquals(2, atm.getCoins(ONE));
+        assertEquals(2, atm.getCoins(POINT_ONE));
+        assertEquals(3, atm.getCoins(POINT_FIVE));
     }
 
 }
