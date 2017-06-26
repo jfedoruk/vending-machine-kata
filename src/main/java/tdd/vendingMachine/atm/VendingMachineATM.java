@@ -11,6 +11,16 @@ public class VendingMachineATM {
 
     private BigDecimal money = BigDecimal.valueOf(0.0);
     private HashMap<Coin, Integer> coins = new HashMap<>();
+    private DispenseChain firstInChain;
+
+    {
+        firstInChain = new FiveDispenser();
+        DispenseChain chainTwo = new TwoDispenser();
+        DispenseChain chainThree = new OneDispenser();
+
+        firstInChain.setNextInChain(chainTwo);
+        chainTwo.setNextInChain(chainThree);
+    }
 
     private void addCoin(Coin coin) {
         if (coins.containsKey(coin)) {
@@ -18,6 +28,10 @@ public class VendingMachineATM {
         } else {
             coins.put(coin, 1);
         }
+    }
+
+    public boolean getChange(BigDecimal change) {
+        return firstInChain.dispense(change, coins);
     }
 
     public int getCoins(Coin coin) {

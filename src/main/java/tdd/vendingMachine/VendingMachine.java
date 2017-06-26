@@ -27,6 +27,17 @@ public class VendingMachine {
         VendingMachineDisplay.display(getMoney(), selectedShelve, shelves, currentBalance);
     }
 
+
+    /**
+     * Checks if ATM can give out the change and if true withdraw it.
+     *
+     * @param change - amount of change
+     * @return true if change is possible, false otherwise
+     */
+    public boolean getChange(BigDecimal change) {
+        return atm.getChange(change);
+    }
+
     public BigDecimal getMoney() {
         return atm.getMoney();
     }
@@ -54,5 +65,6 @@ public class VendingMachine {
         }
         this.selectedShelve = selectedShelve;
     }
+
 
 }
