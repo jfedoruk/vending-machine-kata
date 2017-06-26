@@ -26,10 +26,11 @@ public class OneDispenser implements DispenseChain {
                 int amountAvailable = coins.get(coin);
 
                 if (amountAvailable >= amountRequired) {
-                    return true;
+                    BigDecimal changeDispensed = coin.value().multiply(BigDecimal.valueOf(amountRequired));
+                    return chain.dispense(change.subtract(changeDispensed), coins);
                 }
             }
         }
-        return false;
+        return chain.dispense(change, coins);
     }
 }

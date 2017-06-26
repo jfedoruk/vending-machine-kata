@@ -5,9 +5,9 @@ import tdd.vendingMachine.VendingMachine;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public class TwoDispenser implements DispenseChain {
+public class PointTwoDispenser implements DispenseChain {
 
-    private Coin coin = Coin.TWO;
+    private Coin coin = Coin.POINT_TWO;
 
     private DispenseChain chain;
 
@@ -27,7 +27,6 @@ public class TwoDispenser implements DispenseChain {
 
                 if (amountAvailable >= amountRequired) {
                     BigDecimal changeDispensed = coin.value().multiply(BigDecimal.valueOf(amountRequired));
-                    if (changeDispensed.equals(change)) return true;
                     return chain.dispense(change.subtract(changeDispensed), coins);
                 }
             }

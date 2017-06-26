@@ -17,9 +17,15 @@ public class VendingMachineATM {
         firstInChain = new FiveDispenser();
         DispenseChain chainTwo = new TwoDispenser();
         DispenseChain chainThree = new OneDispenser();
+        DispenseChain chainFour = new PointFiveDispenser();
+        DispenseChain chainFive = new PointTwoDispenser();
+        DispenseChain chainSix = new PointOneDispenser();
 
         firstInChain.setNextInChain(chainTwo);
         chainTwo.setNextInChain(chainThree);
+        chainThree.setNextInChain(chainFour);
+        chainFour.setNextInChain(chainFive);
+        chainFive.setNextInChain(chainSix);
     }
 
     private void addCoin(Coin coin) {
