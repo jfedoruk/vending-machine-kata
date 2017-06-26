@@ -20,6 +20,13 @@ public class VendingMachineATM {
         }
     }
 
+    public int getCoins(Coin coin) {
+        if (coins.containsKey(coin)) {
+            return coins.get(coin);
+        }
+        return 0;
+    }
+
     public BigDecimal getMoney() {
         return money;
     }
@@ -29,17 +36,20 @@ public class VendingMachineATM {
         addCoin(coin);
     }
 
+    private void removeCoin(Coin coin) {
+        if (coins.get(coin) > 1) {
+            coins.put(coin, coins.get(coin) - 1);
+        } else {
+            coins.remove(coin);
+        }
+    }
+
     public void withdraw(Coin coin) throws Exception {
         if (coin.value().compareTo(money) == 1) {
             throw new Exception("Cannot withdraw - no sufficient money left.");
         }
         money = money.subtract(coin.value());
+        removeCoin(coin);
     }
 
-    public int getCoins(Coin coin) {
-        if (coins.containsKey(coin)) {
-            return coins.get(coin);
-        }
-        return 0;
-    }
 }

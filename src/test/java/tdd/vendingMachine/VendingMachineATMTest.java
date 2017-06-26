@@ -21,6 +21,12 @@ public class VendingMachineATMTest {
 
     private VendingMachineATM atm;
 
+    private void depositAllTypesOfCoins() {
+        for (Coin coin : Coin.values()) {
+            atm.deposit(coin);
+        }
+    }
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -61,9 +67,8 @@ public class VendingMachineATMTest {
     public void testWithdrawal() throws Exception {
         assertEquals(ZERO, atm.getMoney());
 
-        for (Coin coin : Coin.values()) {
-            atm.deposit(coin);
-        }
+        depositAllTypesOfCoins();
+
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
 
         atm.withdraw(FIVE);
@@ -95,7 +100,7 @@ public class VendingMachineATMTest {
 
     @Test
     @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE", "POINT_TWO", "POINT_ONE"})
-    public void testNumberOfCoins(Coin coin) {
+    public void testNumberOfCoinsDeposit(Coin coin) {
         for (Coin coinType : Coin.values()) {
             assertEquals(0, atm.getCoins(coinType));
         }
@@ -112,9 +117,8 @@ public class VendingMachineATMTest {
 
     @Test
     public void testDifferentCoinsDeposit() {
-        for (Coin coin : Coin.values()) {
-            atm.deposit(coin);
-        }
+        depositAllTypesOfCoins();
+
         assertEquals(BigDecimal.valueOf(8.8), atm.getMoney());
 
         for (Coin coin : Coin.values()) {
@@ -131,4 +135,22 @@ public class VendingMachineATMTest {
         assertEquals(3, atm.getCoins(POINT_FIVE));
     }
 
+    @Test
+    @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE", "POINT_TWO", "POINT_ONE"})
+    public void testNumberOfCoinsWithdrawal(Coin coin) throws Exception {
+        for (Coin coinType : Coin.values()) {
+            assertEquals(0, atm.getCoins(coinType));
+        }
+        depositAllTypesOfCoins();
+
+        atm.withdraw(coin);
+
+        for (Coin coinType : Coin.values()) {
+            if (coinType == coin) {
+                assertEquals(0, atm.getCoins(coinType));
+            } else {
+                assertEquals(1, atm.getCoins(coinType));
+            }
+        }
+    }
 }
