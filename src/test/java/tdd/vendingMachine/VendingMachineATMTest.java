@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import tdd.vendingMachine.atm.Coin;
 import tdd.vendingMachine.atm.VendingMachineATM;
 
 import java.math.BigDecimal;
@@ -90,4 +91,21 @@ public class VendingMachineATMTest {
 
         atm.withdraw(ONE);
     }
+
+    @Test
+    public void testNumberOfCoins() {
+        for (Coin coinType : Coin.values()) {
+            assertEquals(0, atm.getCoins(coinType));
+        }
+        atm.deposit(ONE);
+
+        for (Coin coinType : Coin.values()) {
+            if (coinType == ONE) {
+                assertEquals(1, atm.getCoins(coinType));
+            } else {
+                assertEquals(0, atm.getCoins(coinType));
+            }
+        }
+    }
+
 }

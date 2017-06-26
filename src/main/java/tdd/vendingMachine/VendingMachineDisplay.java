@@ -17,7 +17,9 @@ public class VendingMachineDisplay {
      * Display shows:
      * <uL>
      * <li>money inside vending machine
-     * <li>selected shelve and their count
+     * <li>selected shelve and number of shelves (if there are shelves)
+     * <li>selected product
+     * <li>current balance
      * </uL>
      */
     public static void display(BigDecimal money,
