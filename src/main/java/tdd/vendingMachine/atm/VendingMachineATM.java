@@ -36,9 +36,9 @@ public class VendingMachineATM {
         money = money.subtract(coin.value());
     }
 
-    public int getCoins(Coin coinType) {
-        if (coins.containsKey(coinType)) {
-            return coins.get(coinType);
+    public int getCoins(Coin coin) {
+        if (coins.containsKey(coin)) {
+            return coins.get(coin);
         }
         return 0;
     }

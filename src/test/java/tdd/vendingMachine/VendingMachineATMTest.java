@@ -1,9 +1,12 @@
 package tdd.vendingMachine;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import tdd.vendingMachine.atm.Coin;
 import tdd.vendingMachine.atm.VendingMachineATM;
 
@@ -13,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static tdd.vendingMachine.VendingMachine.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
+@RunWith(JUnitParamsRunner.class)
 public class VendingMachineATMTest {
 
     private VendingMachineATM atm;
@@ -93,14 +97,15 @@ public class VendingMachineATMTest {
     }
 
     @Test
-    public void testNumberOfCoins() {
+    @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE", "POINT_TWO", "POINT_ONE"})
+    public void testNumberOfCoins(Coin coin) {
         for (Coin coinType : Coin.values()) {
             assertEquals(0, atm.getCoins(coinType));
         }
-        atm.deposit(ONE);
+        atm.deposit(coin);
 
         for (Coin coinType : Coin.values()) {
-            if (coinType == ONE) {
+            if (coinType == coin) {
                 assertEquals(1, atm.getCoins(coinType));
             } else {
                 assertEquals(0, atm.getCoins(coinType));
