@@ -36,11 +36,11 @@ public class VendingMachineATM {
         addCoin(coin);
     }
 
-    private void removeCoin(Coin coin) {
-        if (coins.get(coin) > 1) {
+    private void removeCoin(Coin coin) throws Exception {
+        if (coins.get(coin) >= 1) {
             coins.put(coin, coins.get(coin) - 1);
         } else {
-            coins.remove(coin);
+            throw new Exception("Cannot withdraw - no coins of this type left.");
         }
     }
 
