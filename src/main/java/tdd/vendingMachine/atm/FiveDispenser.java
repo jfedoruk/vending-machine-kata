@@ -17,10 +17,10 @@ public class FiveDispenser implements DispenseChain {
     }
 
     @Override
-    public boolean dispense(BigDecimal change, HashMap<Coin, Integer> coins) {
+    public HashMap<Coin, Integer> dispense(BigDecimal change, HashMap<Coin, Integer> coins, HashMap<Coin, Integer> usedCoins) {
         if (coins.containsKey(coin)) {
-            BigDecimal coinsAvailable = BigDecimal.valueOf(coins.get(coin));
-            BigDecimal amountAvailable = coin.value().multiply(coinsAvailable);
+            Integer coinsAvailable = coins.get(coin);
+            BigDecimal amountAvailable = coin.value().multiply(BigDecimal.valueOf(coinsAvailable));
 
             /* Proceed only when we can dispense at least 1 coin of this type */
             if (change.compareTo(coin.value()) >= 0) {
@@ -32,13 +32,15 @@ public class FiveDispenser implements DispenseChain {
                  */
                 if ((quotientAndRemainder[1].compareTo(VendingMachine.ZERO) == 0) &&
                     (change.compareTo(amountAvailable) <= 0)) {
-                    return true;
+                    usedCoins.put(coin, coinsAvailable);
+                    return usedCoins;
                 }
 
                 BigDecimal changeDispensed = coin.value().multiply(quotientAndRemainder[0]);
-                return chain.dispense(change.subtract(changeDispensed), coins);
+                usedCoins.put(coin, quotientAndRemainder[0].intValue());
+                return chain.dispense(change.subtract(changeDispensed), coins, usedCoins);
             }
         }
-        return chain.dispense(change, coins);
+        return chain.dispense(change, coins, usedCoins);
     }
 }

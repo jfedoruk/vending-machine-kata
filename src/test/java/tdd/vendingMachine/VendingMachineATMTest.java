@@ -183,13 +183,91 @@ public class VendingMachineATMTest {
         depositAllTypesOfCoins();
 
         assertTrue(atm.getChange(BigDecimal.valueOf(0.1).add(coin.value())));
+        assertEquals(0, atm.getCoins(POINT_ONE));
+        assertEquals(0, atm.getCoins(coin));
+        atm.deposit(POINT_ONE);
+        atm.deposit(coin);
         assertTrue(atm.getChange(BigDecimal.valueOf(0.2).add(coin.value())));
+        assertEquals(0, atm.getCoins(POINT_TWO));
+        assertEquals(0, atm.getCoins(coin));
+        atm.deposit(POINT_TWO);
+        atm.deposit(coin);
         assertTrue(atm.getChange(BigDecimal.valueOf(0.3).add(coin.value())));
+        assertEquals(0, atm.getCoins(POINT_ONE));
+        assertEquals(0, atm.getCoins(POINT_TWO));
+        assertEquals(0, atm.getCoins(coin));
+        atm.deposit(POINT_ONE);
+        atm.deposit(POINT_TWO);
+        atm.deposit(coin);
         assertTrue(atm.getChange(BigDecimal.valueOf(0.5).add(coin.value())));
+        if (coin != POINT_FIVE) {
+            assertEquals(0, atm.getCoins(POINT_FIVE));
+            assertEquals(0, atm.getCoins(coin));
+            atm.deposit(POINT_FIVE);
+            atm.deposit(coin);
+        } else {
+            assertEquals(0, atm.getCoins(ONE));
+            assertEquals(1, atm.getCoins(coin));
+            atm.deposit(ONE);
+        }
         assertTrue(atm.getChange(BigDecimal.valueOf(0.6).add(coin.value())));
+        if (coin != POINT_FIVE) {
+            assertEquals(0, atm.getCoins(POINT_ONE));
+            assertEquals(0, atm.getCoins(POINT_FIVE));
+            assertEquals(0, atm.getCoins(coin));
+            atm.deposit(POINT_ONE);
+            atm.deposit(POINT_FIVE);
+            atm.deposit(coin);
+        } else {
+            assertEquals(0, atm.getCoins(POINT_ONE));
+            assertEquals(0, atm.getCoins(ONE));
+            assertEquals(1, atm.getCoins(coin));
+            atm.deposit(POINT_ONE);
+            atm.deposit(ONE);
+        }
         assertTrue(atm.getChange(BigDecimal.valueOf(0.7).add(coin.value())));
+        if (coin != POINT_FIVE) {
+            assertEquals(0, atm.getCoins(POINT_TWO));
+            assertEquals(0, atm.getCoins(POINT_FIVE));
+            assertEquals(0, atm.getCoins(coin));
+            atm.deposit(POINT_TWO);
+            atm.deposit(POINT_FIVE);
+            atm.deposit(coin);
+        } else {
+            assertEquals(0, atm.getCoins(POINT_TWO));
+            assertEquals(0, atm.getCoins(ONE));
+            assertEquals(1, atm.getCoins(coin));
+            atm.deposit(POINT_TWO);
+            atm.deposit(ONE);
+        }
         assertTrue(atm.getChange(BigDecimal.valueOf(0.8).add(coin.value())));
+        if (coin != POINT_FIVE) {
+            assertEquals(0, atm.getCoins(POINT_ONE));
+            assertEquals(0, atm.getCoins(POINT_FIVE));
+            assertEquals(0, atm.getCoins(coin));
+            atm.deposit(POINT_ONE);
+            atm.deposit(POINT_FIVE);
+            atm.deposit(coin);
+        } else {
+            assertEquals(0, atm.getCoins(POINT_ONE));
+            assertEquals(0, atm.getCoins(POINT_TWO));
+            assertEquals(0, atm.getCoins(ONE));
+            assertEquals(1, atm.getCoins(coin));
+            atm.deposit(POINT_ONE);
+            atm.deposit(POINT_TWO);
+            atm.deposit(ONE);
+        }
         assertTrue(atm.getChange(BigDecimal.valueOf(1.0).add(coin.value())));
+        if (coin != ONE) {
+            assertEquals(0, atm.getCoins(ONE));
+            assertEquals(0, atm.getCoins(coin));
+            atm.deposit(ONE);
+            atm.deposit(coin);
+        } else {
+            assertEquals(0, atm.getCoins(TWO));
+            assertEquals(1, atm.getCoins(coin));
+            atm.deposit(TWO);
+        }
 
         assertFalse(atm.getChange(BigDecimal.valueOf(0.4).add(coin.value())));
         assertFalse(atm.getChange(BigDecimal.valueOf(0.9).add(coin.value())));
