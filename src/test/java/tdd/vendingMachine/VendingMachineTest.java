@@ -148,7 +148,7 @@ public class VendingMachineTest {
         assertEquals(BigDecimal.valueOf(6.5), vendingMachine.getMoney());
 
         assertTrue(vendingMachine.getChange(BigDecimal.valueOf(1)));
-        assertFalse(vendingMachine.getChange(BigDecimal.valueOf(1.5)));
+        assertTrue(vendingMachine.getChange(BigDecimal.valueOf(1.5)));
         assertFalse(vendingMachine.getChange(BigDecimal.valueOf(2)));
     }
 

@@ -14,8 +14,7 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static tdd.vendingMachine.VendingMachine.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
@@ -178,4 +177,21 @@ public class VendingMachineATMTest {
         assertTrue(atm.getChange(coin.value()));
     }
 
+    @Test
+    @Parameters({"FIVE", "TWO", "ONE", "POINT_FIVE"})
+    public void testGetChangeOutMultipleDepositOne(Coin coin) {
+        depositAllTypesOfCoins();
+
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.1).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.2).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.3).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.5).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.6).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.7).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(0.8).add(coin.value())));
+        assertTrue(atm.getChange(BigDecimal.valueOf(1.0).add(coin.value())));
+
+        assertFalse(atm.getChange(BigDecimal.valueOf(0.4).add(coin.value())));
+        assertFalse(atm.getChange(BigDecimal.valueOf(0.9).add(coin.value())));
+    }
 }

@@ -19,14 +19,19 @@ public class PointOneDispenser implements DispenseChain {
     @Override
     public boolean dispense(BigDecimal change, HashMap<Coin, Integer> coins) {
         if (coins.containsKey(coin)) {
-            BigDecimal remainder = change.remainder(coin.value());
+            BigDecimal coinsAvailable = BigDecimal.valueOf(coins.get(coin));
+            BigDecimal amountAvailable = coin.value().multiply(coinsAvailable);
 
-            if (remainder.compareTo(VendingMachine.ZERO) == 0) {
-                int amountRequired = change.divide(coin.value()).intValue();
-                int amountAvailable = coins.get(coin);
+            /* Proceed only when we can dispense at least 1 coin of this type */
+            if (change.compareTo(coin.value()) >= 0) {
+                BigDecimal remainder = change.remainder(coin.value());
 
-                if (amountAvailable >= amountRequired) {
-                    BigDecimal changeDispensed = coin.value().multiply(BigDecimal.valueOf(amountRequired));
+                /*
+                 * Check if we can dispense using only this type of coins
+                 * and we have enough coins to do that.
+                 */
+                if ((remainder.compareTo(VendingMachine.ZERO) == 0) &&
+                    (change.compareTo(amountAvailable) <= 0)) {
                     return true;
                 }
             }
