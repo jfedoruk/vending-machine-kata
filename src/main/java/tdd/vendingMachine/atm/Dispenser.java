@@ -1,7 +1,5 @@
 package tdd.vendingMachine.atm;
 
-import tdd.vendingMachine.VendingMachine;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -32,9 +30,9 @@ public class Dispenser {
                  * Check if we can dispense using only this type of coins
                  * and we have enough coins to do that.
                  */
-                if ((quotientAndRemainder[1].compareTo(VendingMachine.ZERO) == 0) &&
+                if ((quotientAndRemainder[1].compareTo(BigDecimal.ZERO) == 0) &&
                     (change.compareTo(amountAvailable) <= 0)) {
-                    usedCoins.put(coin, coinsAvailable);
+                    usedCoins.put(coin, quotientAndRemainder[0].intValue());
                     return usedCoins;
                 }
 

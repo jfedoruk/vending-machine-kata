@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
-import static tdd.vendingMachine.VendingMachine.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
 public class VendingMachineTest {
@@ -36,7 +35,7 @@ public class VendingMachineTest {
 
     @Test
     public void testVendingMachine() {
-        assertEquals(ZERO, vendingMachine.getMoney());
+        assertEquals(BigDecimal.ZERO, vendingMachine.getMoney());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 0.0");
         assertThat(outContent.toString()).contains("No shelves - sorry we're empty:(");
@@ -128,7 +127,6 @@ public class VendingMachineTest {
         outContent.reset();
 
         vendingMachine.deposit(POINT_FIVE);
-        vendingMachine.display();
         assertThat(outContent.toString()).contains("Successful purchase!");
         assertThat(outContent.toString()).contains("Disposing product: Cola");
         outContent.reset();
@@ -136,6 +134,99 @@ public class VendingMachineTest {
         assertEquals(BigDecimal.valueOf(2.5), vendingMachine.getMoney());
         vendingMachine.display();
         assertThat(outContent.toString()).contains("Money: 2.5");
+    }
+
+    @Test
+    public void testBuyWithChange() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(1);
+
+        vendingMachine.deposit(ONE);
+        vendingMachine.deposit(ONE);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Chocolate {price = 3.5}");
+        assertThat(outContent.toString()).contains("Current balance: 2.0");
+        assertThat(outContent.toString()).contains("Remaining: 1.5");
+        outContent.reset();
+
+        vendingMachine.deposit(POINT_FIVE);
+        vendingMachine.deposit(TWO);
+        assertThat(outContent.toString()).contains("Successful purchase!");
+        assertThat(outContent.toString()).contains("Disposing product: Chocolate {price = 3.5}");
+        assertThat(outContent.toString()).contains("Change: 1.0");
+        outContent.reset();
+
+        assertEquals(BigDecimal.valueOf(3.5), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 3.5");
+    }
+
+    @Test
+    public void testBuyWithChangeTwo() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(1);
+
+        vendingMachine.deposit(ONE);
+        vendingMachine.deposit(ONE);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Chocolate {price = 3.5}");
+        assertThat(outContent.toString()).contains("Current balance: 2.0");
+        assertThat(outContent.toString()).contains("Remaining: 1.5");
+        outContent.reset();
+
+        vendingMachine.deposit(POINT_FIVE);
+        vendingMachine.deposit(TWO);
+        assertThat(outContent.toString()).contains("Successful purchase!");
+        assertThat(outContent.toString()).contains("Disposing product: Chocolate {price = 3.5}");
+        assertThat(outContent.toString()).contains("Change: 1.0");
+        outContent.reset();
+
+        assertEquals(BigDecimal.valueOf(3.5), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 3.5");
+        outContent.reset();
+
+        vendingMachine.selectShelve(3);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Water {price = 1.1}");
+        assertThat(outContent.toString()).contains("Current balance: 0");
+        outContent.reset();
+
+        vendingMachine.deposit(POINT_TWO);
+        vendingMachine.deposit(POINT_TWO);
+        vendingMachine.deposit(POINT_ONE);
+        vendingMachine.deposit(POINT_ONE);
+        vendingMachine.deposit(ONE);
+        assertThat(outContent.toString()).contains("Successful purchase!");
+        assertThat(outContent.toString()).contains("Disposing product: Water {price = 1.1}");
+        assertThat(outContent.toString()).contains("Change: 0.5");
+
+        assertEquals(BigDecimal.valueOf(4.6), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 4.6");
+        outContent.reset();
+    }
+
+    @Test
+    public void testBuyWithChangeNegative() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(2);
+
+        vendingMachine.deposit(TWO);
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Beer {price = 4.3}");
+        assertThat(outContent.toString()).contains("Current balance: 2.0");
+        assertThat(outContent.toString()).contains("Remaining: 2.3");
+        outContent.reset();
+
+        vendingMachine.deposit(FIVE);
+        assertThat(outContent.toString()).contains("Purchase canceled! Not enough money to give out the change :(");
+        assertThat(outContent.toString()).contains("Change: 7.0");
+        outContent.reset();
+
+        assertEquals(BigDecimal.valueOf(0.0), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 0.0");
     }
 
     @Test

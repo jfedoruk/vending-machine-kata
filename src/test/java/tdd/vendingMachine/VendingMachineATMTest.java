@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
-import static tdd.vendingMachine.VendingMachine.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
 @RunWith(JUnitParamsRunner.class)
@@ -39,12 +38,12 @@ public class VendingMachineATMTest {
 
     @Test
     public void testVendingMachineATM() {
-        assertEquals(BigDecimal.valueOf(0.0), atm.getMoney());
+        assertEquals(BigDecimal.ZERO, atm.getMoney());
     }
 
     @Test
     public void testDeposit() {
-        assertEquals(ZERO, atm.getMoney());
+        assertEquals(BigDecimal.ZERO, atm.getMoney());
 
         atm.deposit(FIVE);
         assertEquals(BigDecimal.valueOf(5.0), atm.getMoney());
@@ -67,7 +66,7 @@ public class VendingMachineATMTest {
 
     @Test
     public void testWithdrawal() throws Exception {
-        assertEquals(ZERO, atm.getMoney());
+        assertEquals(BigDecimal.ZERO, atm.getMoney());
 
         depositAllTypesOfCoins();
 

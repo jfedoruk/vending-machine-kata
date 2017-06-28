@@ -5,14 +5,12 @@ import tdd.vendingMachine.products.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static tdd.vendingMachine.VendingMachine.ZERO;
-
-public class VendingMachineDisplay {
+public final class VendingMachineDisplay {
 
     private final static String separator = "######## Vending Machine ########";
 
     /**
-     * Vending Machine display in ASCII.
+     * Vending Machine display status in ASCII.
      * <p>
      * Display shows:
      * <uL>
@@ -22,14 +20,14 @@ public class VendingMachineDisplay {
      * <li>current balance
      * </uL>
      */
-    public static void display(BigDecimal money,
-                               int selectedShelve,
-                               List<Product> shelves,
-                               BigDecimal currentBalance) {
+    public static void displayStatus(BigDecimal money,
+                                     int selectedShelve,
+                                     List<Product> shelves,
+                                     BigDecimal currentBalance) {
         Product product = null;
 
         System.out.println(separator);
-        System.out.println("Money: " + money);
+        System.out.println("Money: " + money.setScale(2));
         if (shelves != null) {
             product = shelves.get(selectedShelve);
             System.out.println("Selected Shelve: " + getSelectedShelveForDisplay(selectedShelve) +
@@ -38,12 +36,9 @@ public class VendingMachineDisplay {
             System.out.println("Product: " + product.toString());
 
             System.out.println("Current balance: " + currentBalance);
-            if (currentBalance.compareTo(ZERO) == 1) {
-                System.out.println("Remaining: " + product.price().subtract(currentBalance));
-            }
-            if (currentBalance.compareTo(product.price()) >= 0) {
-                System.out.println("Successful purchase!");
-                System.out.println("Disposing product: " + product.toString());
+            if (currentBalance.compareTo(BigDecimal.ZERO) == 1) {
+                BigDecimal remaining = product.price().subtract(currentBalance);
+                System.out.println("Remaining: " + remaining);
             }
         } else {
             System.out.println("No shelves - sorry we're empty:(");
@@ -55,4 +50,20 @@ public class VendingMachineDisplay {
     private static int getSelectedShelveForDisplay(int selectedShelve) {
         return selectedShelve + 1;
     }
+
+    public static void displayCancelMessage(BigDecimal currentBalance) {
+        System.out.println(separator);
+        System.out.println("Purchase canceled! Not enough money to give out the change :(");
+        System.out.println("Change: " + currentBalance);
+        System.out.println(separator);
+    }
+
+    public static void displayPurchaseMessage(Product product, BigDecimal change) {
+        System.out.println(separator);
+        System.out.println("Successful purchase!");
+        System.out.println("Disposing product: " + product.toString());
+        System.out.println("Change: " + change);
+        System.out.println(separator);
+    }
+
 }

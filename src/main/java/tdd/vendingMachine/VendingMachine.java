@@ -11,22 +11,33 @@ import java.util.List;
 
 public class VendingMachine {
 
-    public static final BigDecimal ZERO = BigDecimal.valueOf(0.0);
-
     private int selectedShelve = 0;
     private List<Product> shelves;
     private VendingMachineATM atm = new VendingMachineATM();
-    private BigDecimal currentBalance = ZERO;
+    private BigDecimal currentBalance = BigDecimal.ZERO;
 
     public void deposit(Coin coin) {
         atm.deposit(coin);
         currentBalance = currentBalance.add(coin.value());
+
+        if (shelves != null) {
+            Product product = shelves.get(selectedShelve);
+            if (currentBalance.compareTo(product.price()) >= 0) {
+                if (getChange(currentBalance.subtract(product.price()))) {
+                    VendingMachineDisplay.displayPurchaseMessage(product, currentBalance.subtract(product.price()));
+                    currentBalance = BigDecimal.ZERO;
+                } else {
+                    getChange(currentBalance);
+                    VendingMachineDisplay.displayCancelMessage(currentBalance);
+                    currentBalance = BigDecimal.ZERO;
+                }
+            }
+        }
     }
 
     public void display() {
-        VendingMachineDisplay.display(getMoney(), selectedShelve, shelves, currentBalance);
+        VendingMachineDisplay.displayStatus(getMoney(), selectedShelve, shelves, currentBalance);
     }
-
 
     /**
      * Checks if ATM can give out the change and if true withdraw it.

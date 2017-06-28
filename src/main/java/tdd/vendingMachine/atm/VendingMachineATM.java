@@ -13,7 +13,7 @@ import static tdd.vendingMachine.atm.Coin.*;
  */
 public class VendingMachineATM {
 
-    private BigDecimal money = BigDecimal.valueOf(0.0);
+    private BigDecimal money = BigDecimal.ZERO;
     private HashMap<Coin, Integer> coins = new HashMap<>();
     private Dispenser firstInChain;
     private Dispenser chainTwo;
@@ -46,6 +46,8 @@ public class VendingMachineATM {
     }
 
     public boolean getChange(BigDecimal change) {
+        if (change.compareTo(BigDecimal.ZERO) == 0) return true;
+
         HashMap<Coin, Integer> usedCoins = firstInChain.dispense(change, coins, new HashMap<>());
 
         if (usedCoins.size() > 0) {
