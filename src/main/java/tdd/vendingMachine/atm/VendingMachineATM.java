@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static tdd.vendingMachine.atm.Coin.*;
+
 /**
  * ATM for VendingMachine.
  * Supports deposit and withdrawal of coins.
@@ -13,20 +15,20 @@ public class VendingMachineATM {
 
     private BigDecimal money = BigDecimal.valueOf(0.0);
     private HashMap<Coin, Integer> coins = new HashMap<>();
-    private DispenseChain firstInChain;
-    private DispenseChain chainTwo;
-    private DispenseChain chainThree;
-    private DispenseChain chainFour;
-    private DispenseChain chainFive;
-    private DispenseChain chainSix;
+    private Dispenser firstInChain;
+    private Dispenser chainTwo;
+    private Dispenser chainThree;
+    private Dispenser chainFour;
+    private Dispenser chainFive;
+    private Dispenser chainSix;
 
     {
-        firstInChain = new FiveDispenser();
-        chainTwo = new TwoDispenser();
-        chainThree = new OneDispenser();
-        chainFour = new PointFiveDispenser();
-        chainFive = new PointTwoDispenser();
-        chainSix = new PointOneDispenser();
+        firstInChain = new Dispenser(FIVE);
+        chainTwo = new Dispenser(TWO);
+        chainThree = new Dispenser(ONE);
+        chainFour = new Dispenser(POINT_FIVE);
+        chainFive = new Dispenser(POINT_TWO);
+        chainSix = new Dispenser(POINT_ONE);
 
         firstInChain.setNextInChain(chainTwo);
         chainTwo.setNextInChain(chainThree);

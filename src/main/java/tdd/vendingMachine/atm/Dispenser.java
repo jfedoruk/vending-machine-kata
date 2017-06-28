@@ -5,18 +5,20 @@ import tdd.vendingMachine.VendingMachine;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public class OneDispenser implements DispenseChain {
+public class Dispenser {
 
-    private Coin coin = Coin.ONE;
+    private Coin coin;
 
-    private DispenseChain chain;
+    private Dispenser chain;
 
-    @Override
-    public void setNextInChain(DispenseChain nextInChain) {
+    public Dispenser(Coin coin) {
+        this.coin = coin;
+    }
+
+    public void setNextInChain(Dispenser nextInChain) {
         this.chain = nextInChain;
     }
 
-    @Override
     public HashMap<Coin, Integer> dispense(BigDecimal change, HashMap<Coin, Integer> coins, HashMap<Coin, Integer> usedCoins) {
         if (coins.containsKey(coin)) {
             Integer coinsAvailable = coins.get(coin);
@@ -36,12 +38,17 @@ public class OneDispenser implements DispenseChain {
                     return usedCoins;
                 }
 
-                BigDecimal changeDispensed = coin.value().multiply(quotientAndRemainder[0]);
-                usedCoins.put(coin, quotientAndRemainder[0].intValue());
-                return chain.dispense(change.subtract(changeDispensed), coins, usedCoins);
+                if (chain != null) {
+                    BigDecimal changeDispensed = coin.value().multiply(quotientAndRemainder[0]);
+                    usedCoins.put(coin, quotientAndRemainder[0].intValue());
+                    return chain.dispense(change.subtract(changeDispensed), coins, usedCoins);
+                }
             }
         }
-        return chain.dispense(change, coins, usedCoins);
+        if (chain != null) {
+            return chain.dispense(change, coins, usedCoins);
+        } else {
+            return new HashMap<>();
+        }
     }
-
 }

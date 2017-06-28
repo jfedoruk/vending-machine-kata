@@ -11,9 +11,7 @@ import java.io.PrintStream;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static tdd.vendingMachine.VendingMachine.ZERO;
 import static tdd.vendingMachine.atm.Coin.*;
 
@@ -148,7 +146,7 @@ public class VendingMachineTest {
         assertEquals(BigDecimal.valueOf(6.5), vendingMachine.getMoney());
 
         assertTrue(vendingMachine.getChange(BigDecimal.valueOf(1)));
-        assertTrue(vendingMachine.getChange(BigDecimal.valueOf(1.5)));
+        assertTrue(vendingMachine.getChange(BigDecimal.valueOf(0.5)));
         assertFalse(vendingMachine.getChange(BigDecimal.valueOf(2)));
     }
 
