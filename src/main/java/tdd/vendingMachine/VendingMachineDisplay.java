@@ -51,10 +51,15 @@ public final class VendingMachineDisplay {
         return selectedShelve + 1;
     }
 
-    public static void displayCancelMessage(BigDecimal currentBalance) {
+    public static void displayCancelMessage(BigDecimal currentBalance, boolean userCanceled) {
         System.out.println(separator);
-        System.out.println("Purchase canceled! Not enough money to give out the change :(");
-        System.out.println("Change: " + currentBalance);
+        if (userCanceled) {
+            System.out.println("Purchase canceled!");
+            System.out.println("Refund: " + currentBalance);
+        } else {
+            System.out.println("Purchase canceled! Not enough money to give out the change :(");
+            System.out.println("Change: " + currentBalance);
+        }
         System.out.println(separator);
     }
 

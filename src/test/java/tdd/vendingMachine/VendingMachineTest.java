@@ -241,4 +241,32 @@ public class VendingMachineTest {
         assertFalse(vendingMachine.getChange(BigDecimal.valueOf(2)));
     }
 
+    @Test
+    public void testCancel() throws Exception {
+        vendingMachine.putProductsOnShelves();
+        vendingMachine.selectShelve(2);
+
+        vendingMachine.deposit(TWO);
+        vendingMachine.deposit(ONE);
+        vendingMachine.deposit(POINT_ONE);
+        vendingMachine.deposit(POINT_ONE);
+        vendingMachine.deposit(POINT_TWO);
+
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Product: Beer {price = 4.3}");
+        assertThat(outContent.toString()).contains("Current balance: 3.4");
+        assertThat(outContent.toString()).contains("Remaining: 0.9");
+        outContent.reset();
+
+        vendingMachine.cancel();
+        assertThat(outContent.toString()).contains("Purchase canceled!");
+        assertThat(outContent.toString()).contains("Refund: 3.4");
+        assertThat(outContent.toString()).doesNotContain("Change: 3.4");
+        outContent.reset();
+
+        assertEquals(BigDecimal.valueOf(0.0), vendingMachine.getMoney());
+        vendingMachine.display();
+        assertThat(outContent.toString()).contains("Money: 0.0");
+    }
+
 }

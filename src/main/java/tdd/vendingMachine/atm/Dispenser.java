@@ -37,8 +37,17 @@ public class Dispenser {
                 }
 
                 if (chain != null) {
-                    BigDecimal changeDispensed = coin.value().multiply(quotientAndRemainder[0]);
-                    usedCoins.put(coin, quotientAndRemainder[0].intValue());
+                    /*
+                     * Check how much coins we need to use.
+                     */
+                    BigDecimal coinsToUse;
+                    if (amountAvailable.compareTo(change) > 0) {
+                        coinsToUse = quotientAndRemainder[0];
+                    } else {
+                        coinsToUse = BigDecimal.valueOf(coinsAvailable);
+                    }
+                    BigDecimal changeDispensed = coin.value().multiply(coinsToUse);
+                    usedCoins.put(coin, coinsToUse.intValue());
                     return chain.dispense(change.subtract(changeDispensed), coins, usedCoins);
                 }
             }

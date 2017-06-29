@@ -16,6 +16,23 @@ public class VendingMachine {
     private VendingMachineATM atm = new VendingMachineATM();
     private BigDecimal currentBalance = BigDecimal.ZERO;
 
+    public void cancel() throws Exception {
+        if (!getChange(currentBalance)) {
+            throw new Exception("Cannot withdraw user money!");
+        }
+        VendingMachineDisplay.displayCancelMessage(currentBalance, true);
+        currentBalance = BigDecimal.ZERO;
+    }
+
+    /**
+     * Deposit coin into ATM.
+     * <p>
+     * If current balance is more or equal to price of the product - try to buy.
+     * If ATM cannot give the change - cancel the transaction.
+     * If ATM can give the change - perform buy operation.
+     *
+     * @param coin the coin to deposit
+     */
     public void deposit(Coin coin) {
         atm.deposit(coin);
         currentBalance = currentBalance.add(coin.value());
@@ -28,7 +45,7 @@ public class VendingMachine {
                     currentBalance = BigDecimal.ZERO;
                 } else {
                     getChange(currentBalance);
-                    VendingMachineDisplay.displayCancelMessage(currentBalance);
+                    VendingMachineDisplay.displayCancelMessage(currentBalance, false);
                     currentBalance = BigDecimal.ZERO;
                 }
             }
@@ -76,6 +93,5 @@ public class VendingMachine {
         }
         this.selectedShelve = selectedShelve;
     }
-
 
 }
