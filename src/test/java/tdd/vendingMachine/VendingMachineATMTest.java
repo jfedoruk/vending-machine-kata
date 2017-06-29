@@ -271,4 +271,41 @@ public class VendingMachineATMTest {
         assertFalse(atm.getChange(BigDecimal.valueOf(0.4).add(coin.value())));
         assertFalse(atm.getChange(BigDecimal.valueOf(0.9).add(coin.value())));
     }
+
+    @Test
+    public void testChangeWithDifferentDenominations() {
+        for (int i = 0; i < 10; i++) {
+            atm.deposit(ONE);
+        }
+        atm.deposit(POINT_FIVE);
+        atm.deposit(POINT_FIVE);
+
+        assertEquals(10, atm.getCoins(ONE));
+        assertEquals(2, atm.getCoins(POINT_FIVE));
+        assertEquals(BigDecimal.valueOf(11.0), atm.getMoney());
+        assertTrue(atm.getChange(atm.getMoney()));
+        assertEquals(BigDecimal.ZERO.setScale(1), atm.getMoney());
+        assertEquals(0, atm.getCoins(ONE));
+        assertEquals(0, atm.getCoins(POINT_FIVE));
+
+
+        for (int i = 0; i < 10; i++) {
+            atm.deposit(ONE);
+        }
+        atm.deposit(POINT_FIVE);
+        atm.deposit(POINT_FIVE);
+
+        assertEquals(10, atm.getCoins(ONE));
+        assertEquals(2, atm.getCoins(POINT_FIVE));
+        assertEquals(BigDecimal.valueOf(11.0), atm.getMoney());
+        assertTrue(atm.getChange(BigDecimal.valueOf(5.0)));
+        assertEquals(BigDecimal.valueOf(6.0), atm.getMoney());
+        assertEquals(5, atm.getCoins(ONE));
+        assertEquals(2, atm.getCoins(POINT_FIVE));
+
+        assertTrue(atm.getChange(BigDecimal.valueOf(5.5)));
+        assertEquals(BigDecimal.valueOf(0.5), atm.getMoney());
+        assertEquals(0, atm.getCoins(ONE));
+        assertEquals(1, atm.getCoins(POINT_FIVE));
+    }
 }
