@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 public class Chocolate implements Product {
 
-    private BigDecimal price = BigDecimal.valueOf(3.5);
+    private final BigDecimal price = BigDecimal.valueOf(3.5);
 
     @Override
     public BigDecimal price() {

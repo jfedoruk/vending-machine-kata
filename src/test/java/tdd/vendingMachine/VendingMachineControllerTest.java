@@ -24,6 +24,7 @@ public class VendingMachineControllerTest {
     @Autowired
     VendingMachine vendingMachine;
 
+    @SuppressWarnings("unused")
     @Autowired
     private MockMvc mockMvc;
 

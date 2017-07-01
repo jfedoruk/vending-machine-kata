@@ -16,19 +16,14 @@ public class VendingMachineATM {
     private BigDecimal money = BigDecimal.ZERO;
     private HashMap<Coin, Integer> coins = new HashMap<>();
     private Dispenser firstInChain;
-    private Dispenser chainTwo;
-    private Dispenser chainThree;
-    private Dispenser chainFour;
-    private Dispenser chainFive;
-    private Dispenser chainSix;
 
     {
         firstInChain = new Dispenser(FIVE);
-        chainTwo = new Dispenser(TWO);
-        chainThree = new Dispenser(ONE);
-        chainFour = new Dispenser(POINT_FIVE);
-        chainFive = new Dispenser(POINT_TWO);
-        chainSix = new Dispenser(POINT_ONE);
+        Dispenser chainTwo = new Dispenser(TWO);
+        Dispenser chainThree = new Dispenser(ONE);
+        Dispenser chainFour = new Dispenser(POINT_FIVE);
+        Dispenser chainFive = new Dispenser(POINT_TWO);
+        Dispenser chainSix = new Dispenser(POINT_ONE);
 
         firstInChain.setNextInChain(chainTwo);
         chainTwo.setNextInChain(chainThree);
