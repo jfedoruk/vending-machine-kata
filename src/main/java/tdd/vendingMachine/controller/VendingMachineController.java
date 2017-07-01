@@ -1,22 +1,19 @@
 package tdd.vendingMachine.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import tdd.vendingMachine.VendingMachine;
 
 @Controller
-@EnableAutoConfiguration
 public class VendingMachineController {
 
+    @Autowired
+    VendingMachine vendingMachine;
+
     @RequestMapping("/")
-    @ResponseBody
     String home() {
-        return "Hello World!";
+        return "vendingMachine";
     }
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(VendingMachineController.class, args);
-    }
 }

@@ -1,5 +1,6 @@
 package tdd.vendingMachine;
 
+import org.springframework.stereotype.Service;
 import tdd.vendingMachine.atm.Coin;
 import tdd.vendingMachine.atm.VendingMachineATM;
 import tdd.vendingMachine.products.Product;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class VendingMachine {
 
     private int selectedShelve = 0;
