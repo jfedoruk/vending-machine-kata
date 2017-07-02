@@ -18,6 +18,10 @@ public class VendingMachine {
     private VendingMachineATM atm = new VendingMachineATM();
     private BigDecimal currentBalance = BigDecimal.ZERO;
 
+    public VendingMachine() {
+        putProductsOnShelves();
+    }
+
     public void cancel() throws Exception {
         if (!getChange(currentBalance)) {
             throw new Exception("Cannot withdraw user money!");
@@ -96,4 +100,7 @@ public class VendingMachine {
         this.selectedShelve = selectedShelve;
     }
 
+    public List<Product> getShelves() {
+        return shelves;
+    }
 }

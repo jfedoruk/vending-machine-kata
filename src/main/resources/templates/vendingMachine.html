@@ -1,10 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Vending Machine Kata</title>
+    <title>Vending Machine Home Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
-<p>Vending Machine Home Page</p>
+
+<div class="container-fluid col-md-8 col-md-offset-1">
+    <h2 class="text-center">Vending Machine</h2>
+    <div id="shelves" class="jumbotron">
+        <div class="row" th:each="shelve: ${shelves}">
+            <div class="col-md-8 text-center" th:text="${shelve}">
+                <h2 th:text="${shelve}">Text</h2>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
