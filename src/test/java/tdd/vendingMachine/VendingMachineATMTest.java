@@ -312,4 +312,17 @@ public class VendingMachineATMTest {
         assertEquals(0, atm.getCoins(ONE));
         assertEquals(1, atm.getCoins(POINT_FIVE));
     }
+
+    @Test
+    @Parameters(source = Coin.class)
+    public void testBigMoney(Coin coin) {
+        BigDecimal money = BigDecimal.ZERO;
+        for (int i = 0; i < 1_000_000 ; i++) {
+            atm.deposit(coin);
+            money = money.add(coin.value());
+        }
+
+        assertEquals(money, atm.getMoney());
+
+    }
 }
