@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 public class Water implements Product {
 
-    private BigDecimal price = BigDecimal.valueOf(1.1);
+    private final BigDecimal price = BigDecimal.valueOf(1.1);
 
     @Override
     public BigDecimal price() {

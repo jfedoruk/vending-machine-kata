@@ -24,12 +24,10 @@ public final class VendingMachineDisplay {
                                      int selectedShelve,
                                      List<Product> shelves,
                                      BigDecimal currentBalance) {
-        Product product = null;
-
         System.out.println(separator);
-        System.out.println("Money: " + money.setScale(2));
+        System.out.println("Money: " + money.setScale(2, BigDecimal.ROUND_HALF_UP));
         if (shelves != null) {
-            product = shelves.get(selectedShelve);
+            Product product = shelves.get(selectedShelve);
             System.out.println("Selected Shelve: " + getSelectedShelveForDisplay(selectedShelve) +
                 " of " + shelves.size());
 

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 public class Beer implements Product {
 
-    private BigDecimal price = BigDecimal.valueOf(4.3);
+    private final BigDecimal price = BigDecimal.valueOf(4.3);
 
     @Override
     public BigDecimal price() {

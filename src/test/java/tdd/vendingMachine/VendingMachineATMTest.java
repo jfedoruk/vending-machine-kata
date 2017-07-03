@@ -29,7 +29,7 @@ public class VendingMachineATMTest {
     }
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
+    public final ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -284,7 +284,7 @@ public class VendingMachineATMTest {
         assertEquals(2, atm.getCoins(POINT_FIVE));
         assertEquals(BigDecimal.valueOf(11.0), atm.getMoney());
         assertTrue(atm.getChange(atm.getMoney()));
-        assertEquals(BigDecimal.ZERO.setScale(1), atm.getMoney());
+        assertEquals(BigDecimal.ZERO.setScale(1, BigDecimal.ROUND_HALF_UP), atm.getMoney());
         assertEquals(0, atm.getCoins(ONE));
         assertEquals(0, atm.getCoins(POINT_FIVE));
 
