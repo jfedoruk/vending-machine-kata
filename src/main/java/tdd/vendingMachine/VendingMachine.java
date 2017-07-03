@@ -2,6 +2,7 @@ package tdd.vendingMachine;
 
 import tdd.vendingMachine.atm.Coin;
 import tdd.vendingMachine.atm.VendingMachineATM;
+import tdd.vendingMachine.exception.NegativeShelveNumberException;
 import tdd.vendingMachine.products.Product;
 import tdd.vendingMachine.products.ProductFactory;
 
@@ -89,7 +90,7 @@ public class VendingMachine {
 
     public void selectShelve(int selectedShelve) throws Exception {
         if (selectedShelve < 0) {
-            throw new Exception("Shelve number cannot be negative.");
+            throw new NegativeShelveNumberException();
         }
         this.selectedShelve = selectedShelve;
     }

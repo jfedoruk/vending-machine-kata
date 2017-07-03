@@ -1,5 +1,8 @@
 package tdd.vendingMachine.atm;
 
+import tdd.vendingMachine.exception.NoSufficientCoins;
+import tdd.vendingMachine.exception.NoSufficientMoney;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -88,13 +91,13 @@ public class VendingMachineATM {
         if (coins.get(coin) >= 1) {
             coins.put(coin, coins.get(coin) - 1);
         } else {
-            throw new Exception("Cannot withdraw - no coins of this type left.");
+            throw new NoSufficientCoins();
         }
     }
 
     public void withdraw(Coin coin) throws Exception {
         if (coin.value().compareTo(money) == 1) {
-            throw new Exception("Cannot withdraw - no sufficient money left.");
+            throw new NoSufficientMoney();
         }
         money = money.subtract(coin.value());
         removeCoin(coin);

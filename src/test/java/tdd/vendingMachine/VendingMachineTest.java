@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import tdd.vendingMachine.exception.NegativeShelveNumberException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -72,7 +73,7 @@ public class VendingMachineTest {
 
     @Test()
     public void testSelectingShelveNegative() throws Exception {
-        exception.expect(Exception.class);
+        exception.expect(NegativeShelveNumberException.class);
         exception.expectMessage("Shelve number cannot be negative.");
         vendingMachine.putProductsOnShelves();
         vendingMachine.selectShelve(-1);

@@ -9,11 +9,15 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import tdd.vendingMachine.atm.Coin;
 import tdd.vendingMachine.atm.VendingMachineATM;
+import tdd.vendingMachine.exception.NoSufficientCoins;
+import tdd.vendingMachine.exception.NoSufficientMoney;
 
 import java.math.BigDecimal;
 
+import static java.util.function.Predicate.isEqual;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 import static tdd.vendingMachine.atm.Coin.*;
 
@@ -93,7 +97,7 @@ public class VendingMachineATMTest {
 
     @Test
     public void testWithdrawalNegative() throws Exception {
-        exception.expect(Exception.class);
+        exception.expect(NoSufficientMoney.class);
         exception.expectMessage("Cannot withdraw - no sufficient money left.");
 
         atm.withdraw(ONE);
@@ -160,7 +164,7 @@ public class VendingMachineATMTest {
     public void testNumberOfCoinsWithdrawalNegative(Coin coin) throws Exception {
         depositAllTypesOfCoins();
 
-        exception.expect(Exception.class);
+        exception.expect(anyOf(instanceOf(NoSufficientCoins.class), instanceOf(NoSufficientMoney.class)));
         exception.expectMessage(anyOf(equalTo("Cannot withdraw - no sufficient money left."),
             equalTo("Cannot withdraw - no coins of this type left.")));
 
