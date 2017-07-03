@@ -22,6 +22,10 @@ public class VendingMachine {
         putProductsOnShelves();
     }
 
+    public VendingMachine(Boolean putProductsOnShelves) {
+        if (putProductsOnShelves) putProductsOnShelves();
+    }
+
     public void cancel() throws Exception {
         if (!getChange(currentBalance)) {
             throw new Exception("Cannot withdraw user money!");
@@ -103,4 +107,9 @@ public class VendingMachine {
     public List<Product> getShelves() {
         return shelves;
     }
+
+    public int getSelectedShelve() {
+        return selectedShelve;
+    }
+
 }

@@ -25,7 +25,7 @@ public class VendingMachineTest {
     @Before
     public void setUp() {
         System.setOut(new PrintStream(outContent));
-        vendingMachine = new VendingMachine();
+        vendingMachine = new VendingMachine(false);
     }
 
     @After

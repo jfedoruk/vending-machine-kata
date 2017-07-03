@@ -2,21 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Vending Machine Home Page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
 
 <div class="container-fluid col-md-8 col-md-offset-1">
     <h2 class="text-center">Vending Machine</h2>
-    <div id="shelves" class="jumbotron">
-        <div class="row" th:each="shelve: ${shelves}">
-            <div class="col-md-8 text-center" th:text="${shelve}">
-                <h2 th:text="${shelve}">Text</h2>
-            </div>
-        </div>
+
+    <!-- shelves -->
+    <div id="shelves" class="jumbotron col-md-6">
+        <form action="/selectShelve" method="post">
+            <select class="form-control col-md-6 text-center"
+                    id="shelve"
+                    th:size="${#lists.size(shelves)}"
+                    onchange="this.form.submit()"
+                    name="selectedShelve">
+                <option th:each="shelve, iter: ${shelves}"
+                        th:text="${shelve}"
+                        th:value="${iter.index}"
+                        th:selected="${(iter.index == selectedShelve) ? true: false}">1
+                </option>
+            </select>
+        </form>
     </div>
+
+    <!-- menu -->
+    <div id="menu" class="jumbotron col-md-6">
+        <span th:text="${'Money: ' + money}">Money</span>
+    </div>
+
 </div>
 </body>
 </html>
